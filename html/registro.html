@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
     <link rel="stylesheet" href="../styles/registro_styles.css">
-    <script src="../config/config.js"></script>
-    
+    <script src="../config/registro_config.js"></script>
+    <header>
+        <h1>StudyGate</h1>
+    </header>
 </head>
 <body>
-    <div id="header-container"></div>
-    <form action="/submit-form" method="POST">
+    <h1 class="titulo">Registro de Estudiante</h1>
+    <form id="formularioRegistro">
         <div>
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required>
@@ -24,8 +26,24 @@
             <input type="password" id="contraseña" name="contraseña" required>
         </div>
         <div>
+            <label for="nivelEducativo">Nivel Educativo (1-10):</label>
+            <select id="nivelEducativo" name="nivelEducativo" required>
+                <option value="">Seleccione...</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+        <div>
             <button type="submit">Registrarse</button>
-            <button type="button" onclick="window.location.href='index.html';">Cancelar</button>
+            <button type="button" onclick="window.location.href='../index.html';">Cancelar</button>
         </div>
     </form>
 </body>
