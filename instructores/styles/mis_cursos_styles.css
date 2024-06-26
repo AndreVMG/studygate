@@ -36,8 +36,13 @@ nav a {
     text-decoration: none;
 }
 
-#bienvenida {
-    color: black;
-    font-size: 2em;
-    text-align: center;
+table {
+    border-collapse: separate;
+    border-spacing: 10px;
+    border: 1px solid #ccc;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ccc;
 }

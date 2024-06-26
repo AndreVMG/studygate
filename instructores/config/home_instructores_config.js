@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     const usuarioId = localStorage.getItem('usuarioId');
     const usuario = await obtenerUsuarioPorId(usuarioId);
     const bienvenida = document.querySelector('#bienvenida');
-    bienvenida.textContent = `Bienvenid@ ${usuario.nombre}`;
+    bienvenida.textContent = `Bienvenid@ Instructor/a ${usuario.nombre} a home`;
 });
 
 async function obtenerUsuarioPorId(id) {
