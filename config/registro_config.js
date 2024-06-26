@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    const form = document.querySelector('form');
-    form.addEventListener('submit', postUsuario);
+    const formEstudiante = document.querySelector('#formularioRegistroEstudiante');
+    const formInstructor = document.querySelector('#formularioRegistroInstructor');
+    formEstudiante.addEventListener('submit', postUsuario);
+    formInstructor.addEventListener('submit', postUsuario);
 });
 
 async function obtenerUsuarios() {
@@ -31,13 +33,20 @@ async function obtenerIdPorEmail(emailBuscado) {
 }
 
 async function postUsuario(event) {
-    event.preventDefault(); 
-
-    const form = event.target;
-    const nombre = form.querySelector('[name="nombre"]').value;
-    const correo_electronico = form.querySelector('[name="correo"]').value;
-    const contrasena = form.querySelector('[name="contraseña"]').value;
-    const nivel_educativo = parseInt(form.querySelector('[name="nivelEducativo"]').value, 10);
+    event.preventDefault();
+    console.log('Formulario enviado');
+    const rol = document.querySelector('[name="rol"]').value;
+    const form = rol === 'estudiante' ? document.querySelector('#formularioRegistroEstudiante') : document.querySelector('#formularioRegistroInstructor');
+    let nombre, correo_electronico, contrasena;
+    if (rol === 'estudiante') {
+        nombre = form.querySelector('[name="nombreEstudiante"]').value;
+        correo_electronico = form.querySelector('[name="correoEstudiante"]').value;
+        contrasena = form.querySelector('[name="contraseñaEstudiante"]').value;
+    } else if (rol === 'instructor') {
+        nombre = form.querySelector('[name="nombreInstructor"]').value;
+        correo_electronico = form.querySelector('[name="correoInstructor"]').value;
+        contrasena = form.querySelector('[name="contraseñaInstructor"]').value;
+    }
     const fecha_registro = new Date().toISOString();
 
     const usuario = {
@@ -54,34 +63,50 @@ async function postUsuario(event) {
         },
         body: JSON.stringify(usuario),
     });
-    console.log("Respuesta del servidor:", respuesta.status);
-    const cuerpoRespuesta1 = await respuesta.json(); 
-    console.log("Cuerpo de la respuesta:", cuerpoRespuesta1);
+
     if (!respuesta.ok) {
         throw new Error('Error al enviar el formulario');
     }
-    
+
     const usuarios_id = await obtenerIdPorEmail(correo_electronico);
-    const estudiante = {
-        usuarios_id,
-        nivel_educativo
+
+    if (rol === 'estudiante') {
+        const nivel_educativo = parseInt(form.querySelector('[name="nivelEducativo"]').value, 10);
+        const estudiante = {
+            usuarios_id,
+            nivel_educativo
+        }
+        const respuestaEstudiante = await fetch('http://191.232.164.248:5000/estudiantes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(estudiante),
+        });
+
+        if (!respuestaEstudiante.ok) {
+            throw new Error('Error al enviar el formulario');
+        }
+    } else if (rol === 'instructor') {
+        const especialidades = form.querySelector('[name="especialidades"]').value;
+        const instructor = {
+            usuarios_id,
+            especialidades
+        }
+        const respuestaInstructor = await fetch('http://191.232.164.248:5000/instructores', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(instructor),
+        });
+        if (!respuestaInstructor.ok) {
+            throw new Error('Error al enviar el formulario');
+        }
     }
-    const respuestaEstudiante = await fetch('http://191.232.164.248:5000/estudiantes', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(estudiante),
-    });
-    console.log("Respuesta del servidor:", respuestaEstudiante.status);
-    const cuerpoRespuesta2 = await respuestaEstudiante.json(); 
-    console.log("Cuerpo de la respuesta:", cuerpoRespuesta2);
-    if (!respuestaEstudiante.ok) {
-        throw new Error('Error al enviar el formulario');
-    } else {
-        // Aquí se muestra el mensaje de éxito en el HTML
-        alert('Usuario creado correctamente.');
-        window.location.href = '../index.html';
-    }
+
+    // Aquí se muestra el mensaje de éxito en el HTML
+    alert('Usuario creado correctamente.');
+    window.location.href = '../index.html';
     event.target.reset();
 }
