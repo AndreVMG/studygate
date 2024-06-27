@@ -28,5 +28,7 @@ nav a {
 }
 
 #bienvenida {
-    color: white;
+    color: black;
+    font-size: 2em;
+    text-align: center;
 }

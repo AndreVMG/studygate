@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     const usuario = await obtenerUsuarioPorId(usuarioId);
     const bienvenida = document.querySelector('#bienvenida');
     bienvenida.textContent = `Bienvenid@ Instructor/a ${usuario.nombre} a home`;
+
 });
 
 async function obtenerUsuarioPorId(id) {
