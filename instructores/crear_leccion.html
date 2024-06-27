@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Calificar Curso</title>
     <link rel="stylesheet" href="styles/crear_curso_styles.css">
-    <script src="config/crear_curso_config.js"></script>
+    <script src="config/crear_leccion_config.js"></script>
 </head>
 <body>
 <header>
@@ -18,5 +18,16 @@
         <a href="../index.html">Cerrar Sesión</a>
     </nav>
 </header>
+<form id="leccionForm">
+    <label for="cursos_id">Curso Id:</label><br>
+    <input type="number" id="cursos_id" name="cursos_id" required><br>
+    <label for="titulo">Título:</label><br>
+    <input type="text" id="titulo" name="titulo" required><br>
+    <label for="contenido">Contenido:</label><br>
+    <input type="text" id="contenido" name="contenido" required><br>
+    <label for="orden">Orden:</label><br>
+    <input type="number" id="orden" name="orden" required><br>
+    <button type="submit">Guardar</button>
+</form>
 </body>
 </html>
