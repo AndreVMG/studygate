@@ -86,11 +86,11 @@ async function loginUsuario(event) {
             let id;
             if (rol === 'estudiante') {
                 id = await obtenerEstudianteId(usuarios[i].id);
-                window.location.href = '../estudiantes/home_estudiantes.html';
+                window.location.href = './estudiantes/home_estudiantes.html';
             } else {
                 id = await obtenerInstructorId(usuarios[i].id);
                 console.log(id);
-                window.location.href = '../instructores/home_instructores.html';
+                window.location.href = './instructores/home_instructores.html';
             }
 
             alert("Inicio de sesión exitoso");
